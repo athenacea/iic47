@@ -355,7 +355,8 @@ p.facts{margin:2px 0 0;color:var(--muted);font-size:14px;max-width:none}.person 
 .sc{display:inline-flex;align-items:center;gap:8px;padding:4px 14px 4px 4px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 13px/1 "IBM Plex Sans KR",sans-serif;cursor:pointer;transition:transform .2s,box-shadow .2s}
 .sc:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(60,110,80,.18)}
 .sc img{width:28px;height:28px;border-radius:50%;object-fit:cover;object-position:center 22%}
-.sc.user{border-color:var(--glow);background:rgba(242,184,75,.16)}
+.sc.npc{padding:2px;gap:0}.sc.npc img{width:26px;height:26px}
+.sc.user{border-color:var(--line);background:var(--surface)}
 .collab{display:grid;gap:12px;margin:0 0 8px}
 @media(min-width:760px){.collab{grid-template-columns:repeat(3,1fr)}}
 .collab>div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
@@ -704,7 +705,7 @@ PL.forEach(function(x,i){var d=document.createElement("div");d.className="crd rv
 
 /* 서로의 이야기 / 공존 / 역할 */
 function openByName(nm){var t=null;document.querySelectorAll("#list .person").forEach(function(c){var h=c.querySelector("h3");if(h&&h.firstChild&&h.firstChild.textContent.trim()===nm)t=c});if(t)openRec(t)}
-function chip(nm,user){var b=document.createElement("button");b.type="button";b.className="sc"+(user?" user":"");var im=document.createElement("img");im.alt="";im.src=thumb(nm);var sp=document.createElement("span");sp.textContent=nm.split(" ")[0];b.appendChild(im);b.appendChild(sp);b.title=nm+" 인사기록 열람";b.addEventListener("click",function(){openByName(nm)});return b}
+function chip(nm,user){var b=document.createElement("button");b.type="button";b.className="sc"+(user?" user":"");var im=document.createElement("img");im.alt="";im.src=thumb(nm);var sp=document.createElement("span");sp.textContent=nm.split(" ")[0];b.appendChild(im);b.classList.add("npc");b.title=nm+" 인사기록 열람";b.setAttribute("aria-label",nm+" 인사기록 열람");b.addEventListener("click",function(){openByName(nm)});return b}
 var NAMES=["테오 발렌틴","하센 뮐러","루옌","이그나","로키"],PARTNER={"하센 뮐러":"로키","로키":"하센 뮐러"},sl=document.getElementById("storylist");
 NAMES.forEach(function(n,i){var row=document.createElement("div");row.className="srow";
 var own=document.createElement("div");own.className="sown";var im=document.createElement("img");im.alt="";im.src=thumb(n);var tx=document.createElement("div");var b=document.createElement("b");b.textContent=n.split(" ")[0]+"의 플롯";var sm=document.createElement("small");sm.textContent=PL[i][1];tx.appendChild(b);tx.appendChild(sm);own.appendChild(im);own.appendChild(tx);row.appendChild(own);
